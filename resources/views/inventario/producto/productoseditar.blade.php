@@ -41,16 +41,23 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Descripcion</label>
-                    {{Form::text('descripcion',$dato->descripcion,['class'=>'form-control','id'=>'descripcion','required' => 'required',"maxlength"=>"255"])}}
+                    <label class='control-sidebar-subheading' for="fecha">Nombre del articulo</label>
+                      {{Form::text('descripcion',$dato->descripcion,['class'=>'form-control','id'=>'descripcion','required' => 'required',"maxlength"=>"255"])}}
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Porcentaje</label>
-                    {{Form::number('porcentaje',$dato->porcentaje,['class'=>'form-control','id'=>'porcentaje','required' => 'required',"step"=>"any"])}}
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class='control-sidebar-subheading' for="fecha">Precio</label>
+                          {{Form::number('precio',$dato->precio,['class'=>'form-control','id'=>'precio','required' => 'required',"step"=>"any"])}}
+                    </div>
                   </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label class='control-sidebar-subheading' for="fecha">Impuesto</label>
+                          {{Form::number('impuesto_id',$dato->impuesto_id,['class'=>'form-control','id'=>'impuesto_id','required' => 'required',"step"=>"any"])}}
+                      </div>
                 </div>
+
                 <div class="row">
                   <div class="col-sm-12">
                     <label class='control-sidebar-subheading' for="fecha">Estado</label>

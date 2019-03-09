@@ -9,7 +9,7 @@ use App\Productos;
 
 class Inventario extends Controller
 {
-    //
+    //// IMPUESTO
     public static function impuestosindex(){
         if (!\Auth::check()){
             return redirect('/login');
@@ -197,6 +197,7 @@ class Inventario extends Controller
             return back()->with('status', 'Error:'.$e->getMessage());
         }
     }
+
 
 
 }

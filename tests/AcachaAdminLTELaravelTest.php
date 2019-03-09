@@ -42,7 +42,7 @@ class AcachaAdminLTELaravelTest extends BrowserKitTest
     {
         $this->visit('/')
              ->see('Acacha')
-             ->see('adminlte-laravel')
+             ->see('adminlte')
              ->see('Pratt');
     }
 

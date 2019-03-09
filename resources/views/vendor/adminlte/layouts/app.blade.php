@@ -29,7 +29,9 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="skin-blue sidebar-mini sidebar-collapse">
+
+<!--COLOR DEL SIDEBAR DE ARIIBA  -->
+<body class="skin-black sidebar-mini sidebar-collapse">
 <div id="app">
     <div class="wrapper">
 

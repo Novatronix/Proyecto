@@ -1,16 +1,16 @@
 @extends('adminlte::layouts.app')
-@section('htmlheader_title') Impuesto Eliminar @endsection
+@section('htmlheader_title') Producto Eliminar @endsection
 @section('contentheader_title')
   <h1>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-barcode"></i>Inventario</a></li>
-    <li><a href="{{ url('inventario/impuestos.index') }}"><i class="fa fa-list"></i> Impuestos</a></li>
+    <li><a href="{{ url('inventario/productos.index') }}"><i class="fa fa-list"></i> Productos</a></li>
     <li class="active">Eliminar</li>
   </ol>
 @endsection
   @section('main-content')
-    {{ Form::open(array('url' => '/inventario/impuestos.destruir')) }}
+    {{ Form::open(array('url' => '/inventario/productos.destruir')) }}
     <div class="container-fluid spark-screen">
       <div class="row">
         <div class="col-md-12">
@@ -41,20 +41,27 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Descripcion</label>
-                    {{Form::text('descripcion',$dato->descripcion,['class'=>'form-control','id'=>'descripcion','required' => 'required',"maxlength"=>"255"])}}
+                    <label class='control-sidebar-subheading' for="fecha">Nombre del articulo</label>
+                        {{Form::text('descripcion',$dato->descripcion,['class'=>'form-control','id'=>'descripcion','required' => 'required',"maxlength"=>"255",'readonly'=>true])}}
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Porcentaje</label>
-                    {{Form::number('porcentaje',$dato->porcentaje,['class'=>'form-control','id'=>'porcentaje','required' => 'required',"step"=>"any"])}}
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class='control-sidebar-subheading' for="fecha">Precio</label>
+                          {{Form::number('precio',$dato->precio,['class'=>'form-control','id'=>'precio','required' => 'required',"step"=>"any",'readonly'=>true])}}
+                    </div>
                   </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label class='control-sidebar-subheading' for="fecha">Impuesto</label>
+                        {{Form::number('impuesto_id',$dato->impuesto_id,['class'=>'form-control','id'=>'impuesto_id','required' => 'required',"step"=>"any",'readonly'=>true])}}
+                      </div>
                 </div>
+
                 <div class="row">
                   <div class="col-sm-12">
                     <label class='control-sidebar-subheading' for="fecha">Estado</label>
-                      {{ Form::select('estado', ['1'=>'Habilitado','0'=>'Deshabilitado'], $dato->estado,array('class'=>'form-control')) }}
+                        {{ Form::select('estado', ['1'=>'Habilitado','0'=>'Deshabilitado'], $dato->estado,array('class'=>'form-control','disabled'=>'disabled')) }}
                   </div>
                 </div>
                 <div class="row">

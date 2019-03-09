@@ -20,7 +20,6 @@
             @endif
           </h3>
           <h3 class="page-header">
-
               <a class="btn btn-primary" href="{{ url('/inventario/productos.nuevo/') }}">
                 <i class="fa fa-plus"></i> Nuevo producto
               </a>
