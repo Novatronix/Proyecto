@@ -40,6 +40,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ url('/inventario/productos.index') }}">Productos</a></li>
                     <li><a href="{{ url('/inventario/impuestos.index') }}">Impuesto</a></li>
+                    <li><a href="{{ url('/inventario/clientes.index') }}">Clientes</a></li>
                 </ul>
             </li>
 

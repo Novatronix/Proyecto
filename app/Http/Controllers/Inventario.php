@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Impuestos;
 use App\Inventarios;
 use App\Productos;
+use App\Clientes;
 
 class Inventario extends Controller
 {
@@ -192,6 +193,102 @@ class Inventario extends Controller
             Productos::where('id','=',$request->id)->delete();
             \DB::commit();
             return redirect('/inventario/productos.index')->with('status', 'El producto se elimino correctamente');
+        }catch (\Exception $e){
+            \DB::rollback();
+            return back()->with('status', 'Error:'.$e->getMessage());
+        }
+    }
+
+    //Clientes
+
+    public static function clientesindex(){
+        if (!\Auth::check()){
+            return redirect('/login');
+        }
+        $cliente=Clientes::all();
+        return \View::make('inventario.clientes.clientes')->with([
+            'datos'=>$cliente
+        ]);
+    }
+    public static  function clientesnuevo(){
+        if (!\Auth::check()){
+            return redirect('/login');
+        }
+        return \View::make('inventario.clientes.clientesnuevo');
+    }
+    public static function clientescrear(Request $request){
+        if (!\Auth::check()){
+            return redirect('/login');
+        }
+        \DB::beginTransaction();
+        try{
+            cliente::Create([
+                'descripcion'=>$request->descripcion,
+                'precio'=>$request->precio,
+                'impuesto_id'=>$request->impuesto_id,
+                'estado'=>$request->estado
+            ]);
+            \DB::commit();
+            return redirect('/inventario/clientes.index')->with('status', 'El producto se guardo correctamente');
+        }catch (\Exception $e){
+            \DB::rollback();
+            return back()->with('status', 'Error:'.$e->getMessage());
+        }
+
+    }
+    public static function clienteseditar($numero){
+        if (!\Auth::check()){
+            return redirect('/login');
+        }
+        $numero=\Crypt::decrypt($numero);
+        $cliente=cliente::find($numero);
+        return \View::make('inventario.clientes.clienteseditar')->with([
+            'dato'=>$cliente
+        ]);
+    }
+    public static function clientesactualizar(Request $request){
+        if (!\Auth::check()){
+            return redirect('/login');
+        }
+        \DB::beginTransaction();
+        try{
+            cliente::where('id','=',$request->id)->
+            update([
+              'descripcion'=>$request->descripcion,
+              'precio'=>$request->precio,
+              'impuesto_id'=>$request->impuesto,
+              'estado'=>$request->estado
+            ]);
+            \DB::commit();
+            return redirect('/inventario/clientes.index')->with('status', 'El cliente se guardo correctamente');
+        }catch (\Exception $e){
+            \DB::rollback();
+            return back()->with('status', 'Error:'.$e->getMessage());
+        }
+    }
+    public static function clienteseliminar($numero){
+        if (!\Auth::check()){
+            return redirect('/login');
+        }
+        $numero=\Crypt::decrypt($numero);
+        $productos=Productos::find($numero);
+        return \View::make('inventario.clientes.clienteseliminar')->with([
+            'dato'=>$productos
+        ]);
+    }
+    public static function clientesdestruir(Request $request){
+        if (!\Auth::check()){
+            return redirect('/login');
+        }
+        $cantidad=cliente::where('impuesto_id','=',$request->id)->count();
+        if($cantidad>0){
+            return back()->with('status', 'Error: El cliente no puede ser eliminado, tiene productos asociados');
+        }
+        \DB::beginTransaction();
+        try{
+            cliente::where('id','=',$request->id)->delete();
+            \DB::commit();
+            return redirect('/inventario/clientes.index')->with('status', 'El cliente se elimino correctamente');
         }catch (\Exception $e){
             \DB::rollback();
             return back()->with('status', 'Error:'.$e->getMessage());

@@ -81,4 +81,53 @@ Route::group([ 'prefix' => 'inventario' ,'middleware' => 'auth'], function () {
         'as'=>'productos.destruir',
         'uses'=>'Inventario@productosdestruir'
     ]);
+//clientes
+
+    Route::get('clientes.index',[
+        'as'=>'clientes.index',
+        'uses'=>'Inventario@clientesindex'
+    ]);
+    Route::get('clientes.nuevo',[
+        'as'=>'clientes.nuevo',
+        'uses'=>'Inventario@clientesnuevo'
+    ]);
+    Route::post('clientes.crear',[
+        'as'=>'clientes.crear',
+        'uses'=>'Inventario@clientescrear'
+    ]);
+    Route::get('clientes.editar/{numero}',[
+        'as'=>'clientes.editar',
+        'uses'=>'Inventario@clienteseditar'
+    ]);
+    Route::post('clientes.actualizar',[
+        'as'=>'clientes.actualizar',
+        'uses'=>'Inventario@clientesactualizar'
+    ]);
+    Route::get('clientes.eliminar/{numero}',[
+        'as'=>'clientes.eliminar',
+        'uses'=>'Inventario@clienteseliminar'
+    ]);
+    Route::post('clientes.destruir',[
+        'as'=>'clientes.destruir',
+        'uses'=>'Inventario@clientesdestruir'
+    ]);
+
+//rutas nuevas
+
+
+});
+Route::group(['prefix' => 'webservice'], function () {
+          Route::get('getClientes.index', [
+                  'as'=>'getClientes.index',
+                  'uses'=>'webservice@getClientes'
+            ]);
+            Route::get('getInventario.index/{bodega}', [
+                'as'=>'getInventario.index',
+                'uses'=>'webservice@getInventario'
+              ]);
+Route::post('sincronizar.index', [
+'as'=>'sincronizar.index',
+'uses'=>'webservice@sincronizar'
+]);
+
 });
