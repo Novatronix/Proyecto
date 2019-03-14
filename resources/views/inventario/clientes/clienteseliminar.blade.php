@@ -1,16 +1,16 @@
 @extends('adminlte::layouts.app')
-@section('htmlheader_title') Impuesto Eliminar @endsection
+@section('htmlheader_title') Cliente Eliminar @endsection
 @section('contentheader_title')
   <h1>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-barcode"></i>Inventario</a></li>
-    <li><a href="{{ url('inventario/impuestos.index') }}"><i class="fa fa-list"></i> Impuestos</a></li>
+    <li><a href="{{ url('inventario/impuestos.index') }}"><i class="fa fa-list"></i> Clientes</a></li>
     <li class="active">Eliminar</li>
   </ol>
 @endsection
   @section('main-content')
-    {{ Form::open(array('url' => '/inventario/impuestos.destruir')) }}
+    {{ Form::open(array('url' => '/inventario/clientes.destruir')) }}
     <div class="container-fluid spark-screen">
       <div class="row">
         <div class="col-md-12">
@@ -29,7 +29,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-default">
-            <div class="panel-heading">Eliminar Impuesto</div>
+            <div class="panel-heading">Eliminar Cliente</div>
             <div class="panel-body">
               <div class="col-md-4"></div>
               <div class="col-md-4">
@@ -41,20 +41,27 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Descripcion</label>
-                    {{Form::text('descripcion',$dato->descripcion,['class'=>'form-control','id'=>'descripcion','required' => 'required',"maxlength"=>"255",'readonly'=>true])}}
+                    <label class='control-sidebar-subheading' for="fecha">Nombre del Cliente</label>
+                    {{Form::text('nombre_cliente',$dato->nombre_cliente,['class'=>'form-control','nombre_cliente'=>'nombre_cliente','required' => 'required',"maxlength"=>"255",'readonly'=>true])}}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Porcentaje</label>
-                    {{Form::number('porcentaje',$dato->porcentaje,['class'=>'form-control','id'=>'porcentaje','required' => 'required',"step"=>"any"])}}
+                    <label class='control-sidebar-subheading' for="fecha">Identificacion</label>
+                    {{Form::text('identificacion',$dato->identificacion,['class'=>'form-control','identificacion'=>'identificacion','required' => 'required',"maxlength"=>"255",'readonly'=>true])}}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Estado</label>
-                      {{ Form::select('estado', ['1'=>'Habilitado','0'=>'Deshabilitado'], $dato->estado,array('class'=>'form-control','disabled'=>'disabled')) }}
+                    <label class='control-sidebar-subheading' for="fecha">Dias de Credito</label>
+                    {{Form::text('dias_credito',$dato->dias_credito,['class'=>'form-control','dias_credito'=>'dias_credito','required' => 'required',"maxlength"=>"255",'readonly'=>true])}}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label class='control-sidebar-subheading' for="fecha">Tipo de Pago</label>
+                      {{ Form::select('estado', ['Credito'=>'Credito','Contado'=>'Contado'], $dato->estado,array('class'=>'form-control','disabled'=>'disabled')) }}
                   </div>
                 </div>
                 <div class="row">

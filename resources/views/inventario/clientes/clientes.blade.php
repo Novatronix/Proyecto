@@ -47,7 +47,7 @@
                   @if(count($datos)>0)
                     @foreach ($datos as $doc)
                       <tr>
-                        <td>{{ $doc->codigo}}</td>
+                        <td>{{ $doc->id}}</td>
                         <td>{{ $doc->nombre_cliente}}</td>
                         <td>{{ $doc->identificacion}}</td>
                         <td>{{ $doc->dias_credito}}</td>
@@ -66,7 +66,7 @@
                             <ul class="dropdown-menu">
                               <li role="separator" class="divider"></li>
 
-                                <li><a href="{{ url('inventario/impuestos.eliminar/'.Crypt::encrypt($doc->id))}}" ><i class="fa fa-trash-o fa-fw"></i>Eliminar</a></li>
+                                <li><a href="{{ url('inventario/clientes.eliminar/'.Crypt::encrypt($doc->id))}}" ><i class="fa fa-trash-o fa-fw"></i>Eliminar</a></li>
 
                             </ul>
                           </div>

@@ -52,7 +52,7 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <label class='control-sidebar-subheading' for="fecha">Impuesto</label>
-                          {{Form::number('impuesto_id','',['class'=>'form-control','id'=>'impuesto_id','required' => 'required',"step"=>"any"])}}
+                          {{Form::select('impuesto_id',$impuestos,'',['class'=>'form-control','id'=>'impuesto_id','required' => 'required'])}}
                       </div>
                 </div>
 

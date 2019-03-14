@@ -10,7 +10,7 @@
   </ol>
 @endsection
   @section('main-content')
-    {{ Form::open(array('url' => '/inventario/impuestos.crear')) }}
+    {{ Form::open(array('url' => '/inventario/clientes.crear')) }}
     <div class="container-fluid spark-screen">
       <div class="row">
         <div class="col-md-12">
@@ -29,7 +29,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-default">
-            <div class="panel-heading">Crear Impuesto</div>
+            <div class="panel-heading">Crear Cliente</div>
             <div class="panel-body">
               <div class="col-md-4"></div>
               <div class="col-md-4">
@@ -38,20 +38,26 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Descripcion</label>
-                    {{Form::text('descripcion',old('descripcion'),['class'=>'form-control','id'=>'descripcion','required' => 'required',"maxlength"=>"255"])}}
+                    <label class='control-sidebar-subheading' for="fecha">Nombre del Cliente</label>
+                    {{Form::text('nombre_cliente',old('descripcion'),['class'=>'form-control','id'=>'nombre_cliente','required' => 'required',"maxlength"=>"255"])}}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Porcentaje</label>
-                    {{Form::number('porcentaje','',['class'=>'form-control','id'=>'porcentaje','required' => 'required',"step"=>"any"])}}
+                    <label class='control-sidebar-subheading' for="fecha">Identificacion</label>
+                    {{Form::text('identificacion',old('descripcion'),['class'=>'form-control','id'=>'identificacion','required' => 'required',"maxlength"=>"255"])}}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label class='control-sidebar-subheading' for="fecha">Estado</label>
-                      {{ Form::select('estado', ['1'=>'Habilitado','0'=>'Deshabilitado'], '1',array('class'=>'form-control')) }}
+                    <label class='control-sidebar-subheading' for="fecha">Dias credito</label>
+                      {{Form::text('dias_credito',old('descripcion'),['class'=>'form-control','id'=>'dias_credito','required' => 'required',"maxlength"=>"255"])}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label class='control-sidebar-subheading' for="fecha">Tipo de Pago</label>
+                      {{ Form::select('tipo_pago', ['Cedito'=>'Credito','Contado'=>'Contado'], '1',array('class'=>'form-control')) }}
                   </div>
                 </div>
                 <div class="row">

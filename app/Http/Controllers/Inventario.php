@@ -80,6 +80,7 @@ class Inventario extends Controller
         }
         $numero=\Crypt::decrypt($numero);
         $impuesto=Impuestos::find($numero);
+
         return \View::make('inventario.impuestos.impuestoseliminar')->with([
             'dato'=>$impuesto
         ]);
@@ -118,7 +119,11 @@ class Inventario extends Controller
         if (!\Auth::check()){
             return redirect('/login');
         }
-        return \View::make('inventario.producto.productosnuevo');
+        $impuestos=Impuestos::all()->pluck('porcentaje','id');
+
+        return \View::make('inventario.producto.productosnuevo')->with([
+            'impuestos'=>$impuestos
+        ]);
     }
     public static function productoscrear(Request $request){
         if (!\Auth::check()){
@@ -146,8 +151,10 @@ class Inventario extends Controller
         }
         $numero=\Crypt::decrypt($numero);
         $productos=productos::find($numero);
+          $impuestos=Impuestos::all()->pluck('porcentaje','id');
         return \View::make('inventario.producto.productoseditar')->with([
-            'dato'=>$productos
+            'dato'=>$productos,
+              'impuestos'=>$impuestos
         ]);
     }
     public static function productosactualizar(Request $request){
@@ -160,7 +167,7 @@ class Inventario extends Controller
             update([
               'descripcion'=>$request->descripcion,
               'precio'=>$request->precio,
-              'impuesto_id'=>$request->impuesto,
+              'impuesto_id'=>$request->impuesto_id,
               'estado'=>$request->estado
             ]);
             \DB::commit();
@@ -222,14 +229,14 @@ class Inventario extends Controller
         }
         \DB::beginTransaction();
         try{
-            cliente::Create([
-                'descripcion'=>$request->descripcion,
-                'precio'=>$request->precio,
-                'impuesto_id'=>$request->impuesto_id,
-                'estado'=>$request->estado
+            Clientes::Create([
+                'nombre_cliente'=>$request->nombre_cliente,
+                'identificacion'=>$request->identificacion,
+                'dias_credito'=>$request->dias_credito,
+                'tipo_pago'=>$request->tipo_pago
             ]);
             \DB::commit();
-            return redirect('/inventario/clientes.index')->with('status', 'El producto se guardo correctamente');
+            return redirect('/inventario/clientes.index')->with('status', 'El cliente se guardo correctamente');
         }catch (\Exception $e){
             \DB::rollback();
             return back()->with('status', 'Error:'.$e->getMessage());
@@ -241,7 +248,7 @@ class Inventario extends Controller
             return redirect('/login');
         }
         $numero=\Crypt::decrypt($numero);
-        $cliente=cliente::find($numero);
+        $cliente=Clientes::find($numero);
         return \View::make('inventario.clientes.clienteseditar')->with([
             'dato'=>$cliente
         ]);
@@ -252,12 +259,12 @@ class Inventario extends Controller
         }
         \DB::beginTransaction();
         try{
-            cliente::where('id','=',$request->id)->
+            Clientes::where('id','=',$request->id)->
             update([
-              'descripcion'=>$request->descripcion,
-              'precio'=>$request->precio,
-              'impuesto_id'=>$request->impuesto,
-              'estado'=>$request->estado
+              'nombre_cliente'=>$request->nombre_cliente,
+              'identificacion'=>$request->identificacion,
+              'dias_credito'=>$request->dias_credito,
+              'tipo_pago'=>$request->tipo_pago
             ]);
             \DB::commit();
             return redirect('/inventario/clientes.index')->with('status', 'El cliente se guardo correctamente');
@@ -271,22 +278,18 @@ class Inventario extends Controller
             return redirect('/login');
         }
         $numero=\Crypt::decrypt($numero);
-        $productos=Productos::find($numero);
+        $cliente=Clientes::find($numero);
         return \View::make('inventario.clientes.clienteseliminar')->with([
-            'dato'=>$productos
+            'dato'=>$cliente
         ]);
     }
     public static function clientesdestruir(Request $request){
         if (!\Auth::check()){
             return redirect('/login');
         }
-        $cantidad=cliente::where('impuesto_id','=',$request->id)->count();
-        if($cantidad>0){
-            return back()->with('status', 'Error: El cliente no puede ser eliminado, tiene productos asociados');
-        }
         \DB::beginTransaction();
         try{
-            cliente::where('id','=',$request->id)->delete();
+            Clientes::where('id','=',$request->id)->delete();
             \DB::commit();
             return redirect('/inventario/clientes.index')->with('status', 'El cliente se elimino correctamente');
         }catch (\Exception $e){
